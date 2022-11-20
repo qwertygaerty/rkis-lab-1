@@ -1,0 +1,20 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+    <h1 class="center">Smart Questionnaire</h1>
+    {% if latest_question_list %}
+    <div class="episodes">
+        {% for question in latest_question_list %}
+        <article class="episode">
+            <a href="{% url 'polls:detail' question.id %}" class="episode__number">{{question.question_text}}</a>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Нет вопросов!</p>
+    {% endif %}
+{% endblock %}
+
+
+
+
+

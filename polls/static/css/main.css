@@ -1,0 +1,94 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+h1 {
+  font-size: 4rem !important;
+  color: rgb(48 98 195);
+
+}
+
+
+.container {
+  width: 95%;
+  max-width: 1220px;
+  margin: 0 auto;
+}
+
+.episodes {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 5rem
+}
+
+.episode {
+  width: fit-content;
+  display: flex;
+  position: relative;
+  border-radius: 12rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.1s ease-in;
+  flex-wrap: wrap;
+}
+
+.episode__number {
+  font-size: 2vw;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  text-align: center;
+  transition: all 0.1s ease-in;
+  cursor: pointer;
+  text-decoration: none;
+  mix-blend-mode: difference;
+}
+
+.episode:hover {
+    color: rgb(48 98 195);
+}
+
+.episode__content {
+  border-top: 2px solid #fff;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 10px;
+  padding: 15px 0;
+}
+
+.episode__content .title {
+  font-weight: 600
+}
+
+.episode__content .story {
+  line-height: 26px;
+}
+
+@media (max-width: 600px) {
+  .episode__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .episode__content .story {
+    font-size: 15px;
+  }
+}
+
+.header, .main {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 10rem;
+}
