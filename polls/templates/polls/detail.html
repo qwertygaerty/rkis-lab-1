@@ -2,16 +2,33 @@
 {% block content %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
-    <fieldset>
+    <fieldset class="flex flex-col gap-9">
         <legend>
             <h1>{{question.question_text}}</h1>
         </legend>
-        {% if error_message %}<p><strong> {{error_message}}</strong></p>{% endif %}
-        {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
-        <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label><br>
-        {% endfor %}
+        {% if error_message %}
+        <div class="alert alert-error shadow-lg justify-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <strong class="font-bold">{{error_message}}</strong>
+        </div>
+        {% endif %}
+        <div class="flex flex-col gap-4">
+            {% for choice in question.choice_set.all %}
+            <div class="flex items-center mb-4">
+                <input id="choice{{forloop.counter}}" type="radio" value="{{choice.id}}" name="default-radio"
+                       class="radio checked:bg-blue-500">
+                <label for="choice{{forloop.counter}}"
+                       class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{choice.choice_text}}</label>
+            </div>
+            {% endfor %}
+        </div>
     </fieldset>
-<input type="submit" value="Vote">
+    <button class="cursor-pointer hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200"
+            type="submit">Проголосовать
+    </button>
 </form>
 {% endblock %}
