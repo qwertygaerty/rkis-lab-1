@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import RegisterForm, LoginForm
 
+from .models import User
+
 
 def register(request):
     if request.method == 'GET':
@@ -11,7 +13,7 @@ def register(request):
         context = {'form': form}
         return render(request, 'register.html', context)
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
@@ -48,7 +50,12 @@ def login_user(request):
             return render(request, 'login.html', context)
     return render(request, 'login.html', {})
 
+
 @login_required
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+def profile(request):
+    return render(request, 'profile.html', {})
