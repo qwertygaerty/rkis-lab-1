@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class RegisterForm(UserCreationForm):
+    avatar = forms.FileField(help_text='Enter avatar', required=True)
+
     username = forms.CharField(
         help_text='Enter username',
         required=True,
@@ -29,7 +31,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['avatar', 'username', 'email', 'password1', 'password2']
 
 
 class LoginForm(forms.Form):

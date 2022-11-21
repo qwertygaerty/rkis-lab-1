@@ -48,7 +48,12 @@ def login_user(request):
             return render(request, 'login.html', context)
     return render(request, 'login.html', {})
 
+
 @login_required
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+def profile(request):
+    return render(request, 'profile.html', {})
