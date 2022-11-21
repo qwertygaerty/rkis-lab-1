@@ -11,7 +11,7 @@ def register(request):
         context = {'form': form}
         return render(request, 'register.html', context)
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')

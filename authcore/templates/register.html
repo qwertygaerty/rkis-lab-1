@@ -3,7 +3,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% load static %}
-
+{% csrf_token %}
 
 <form class="login-form" method="POST" enctype="multipart/form-data">
     <h2 class="my-6 text-3xl font-bold tracking-tight text-gray-900">Зарегистрироваться</h2>
