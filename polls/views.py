@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Question, Choice
@@ -24,6 +25,7 @@ class ResultsView(generic.DetailView):
     template_name = 'polls/results.html'
 
 
+@login_required(login_url='/auth/login/')
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -31,7 +33,7 @@ def vote(request, question_id):
     except (KeyError, Choice.DoesNotExist):
         return render(request, 'polls/detail.html', {
             'question': question,
-            'error_message': 'вы не сделали выбор'
+            'error_message': 'Вы не сделали выбор'
         })
     else:
         selected_choice.votes += 1

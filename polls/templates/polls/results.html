@@ -1,10 +1,85 @@
 {% extends 'polls/base.html' %}
 {% block content %}
-<h1>{{ question.question_text }}</h1>
-<ul>
-    {% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{choice.votes|pluralize}}</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'polls:detail'  question.id %}">выбрать еще раз?</a>
+    <h1>{{ question.question_text }} - Итоги</h1>
+    <ul class="flex justify-between py-5">
+        {% for choice in question.choice_set.all %}
+            <li class="text-3xl">{{ choice.choice_text }} - {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+        {% endfor %}
+    </ul>
+    <div class="shadow-lg rounded-lg overflow-hidden w-6/12 my-0 mx-auto">
+        <div class="py-3 px-5 bg-gray-50 ">Результаты</div>
+        <canvas class="p-10" id="chartPie"></canvas>
+    </div>
+
+    <!-- Required chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <!-- Chart pie -->
+    <script>
+
+        Chart.register(ChartDataLabels);
+
+        const dataPie = {
+            labels: [
+                {% for choice in question.choice_set.all %}
+                    "{{ choice.choice_text }}",
+                {% endfor %}
+            ],
+            datasets: [
+                {
+                    label: "Количество голосов",
+                    data: [
+                        {% for choice in question.choice_set.all %}
+                            "{{ choice.votes }}",
+                        {% endfor %}
+                    ],
+                    backgroundColor: [
+                        "rgb(133, 105, 341)",
+                        "rgb(164, 101, 241)",
+                        "rgb(101, 143, 241)",
+                        "rgb(201, 143, 241)",
+                        "rgb(11, 143, 241)",
+                    ],
+                    hoverOffset: 4,
+                },
+            ],
+        };
+
+        var options = {
+            tooltips: {
+                enabled: true
+            },
+            plugins: {
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += parseInt(data);
+                        });
+                        console.log(sum);
+                        return (value * 100 / sum).toFixed(2) + "%";
+                    },
+                    color: '#fff',
+                }
+            }
+        };
+
+
+        const configPie = {
+            type: "pie",
+            data: dataPie,
+            options: options,
+        };
+
+        var chartBar = new Chart(document.getElementById("chartPie"), configPie);
+    </script>
+
+
+
+
+
+
+
 {% endblock %}

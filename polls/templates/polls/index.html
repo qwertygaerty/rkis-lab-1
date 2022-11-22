@@ -1,7 +1,7 @@
 {% extends 'polls/base.html' %}
 {% block content %}
     {% if user.is_authenticated %}
-        <p>Welcome, {{ user.get_username }}.</p>
+        <p class="text-4xl">Welcome, {{ user.get_username }}.</p>
     {% endif %}
 
 

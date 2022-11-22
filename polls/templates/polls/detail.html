@@ -2,7 +2,7 @@
 {% block content %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
-    <fieldset class="flex flex-col gap-9">
+    <fieldset class="flex flex-col gap-4">
         <legend>
             <h1>{{question.question_text}}</h1>
         </legend>
@@ -16,10 +16,10 @@
             <strong class="font-bold">{{error_message}}</strong>
         </div>
         {% endif %}
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-2 my-7">
             {% for choice in question.choice_set.all %}
             <div class="flex items-center mb-4">
-                <input id="choice{{forloop.counter}}" type="radio" value="{{choice.id}}" name="default-radio"
+                <input id="choice{{forloop.counter}}" type="radio" value="{{choice.id}}" name="choice"
                        class="radio checked:bg-blue-500">
                 <label for="choice{{forloop.counter}}"
                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{choice.choice_text}}</label>
