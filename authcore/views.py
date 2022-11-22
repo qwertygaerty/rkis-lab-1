@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, UpdateForm
 
 from .models import CustomUser
 
@@ -68,3 +68,22 @@ def delete_user(request):
     print(request.user.get_username())
     CustomUser.objects.filter(username=request.user.get_username()).delete()
     return redirect('register')
+
+
+def update_user(request):
+    if request.method == 'GET':
+        form = UpdateForm()
+        context = {'form': form}
+        return render(request, 'update.html', context)
+    if request.method == 'POST':
+        # form = UpdateForm(request.POST, request.user, request.FILES)
+        form = UpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        else:
+            print('Form is not valid')
+            messages.error(request, 'Error Processing Your Request')
+            context = {'form': form}
+            return render(request, 'update.html', context)
+    return render(request, 'update.html', {})
