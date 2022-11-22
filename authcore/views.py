@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
+
+from polls.models import UserChoice
 from .forms import RegisterForm, LoginForm, UpdateForm
 
 from .models import CustomUser
@@ -60,7 +62,9 @@ def logout_user(request):
 
 
 def profile(request):
-    return render(request, 'profile.html', {})
+    context = {'recent': UserChoice.objects.filter(user=request.user)}
+    print(context)
+    return render(request, 'profile.html', context)
 
 
 @login_required
