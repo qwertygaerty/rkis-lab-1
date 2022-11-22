@@ -61,3 +61,10 @@ def logout_user(request):
 
 def profile(request):
     return render(request, 'profile.html', {})
+
+
+@login_required
+def delete_user(request):
+    print(request.user.get_username())
+    CustomUser.objects.filter(username=request.user.get_username()).delete()
+    return redirect('register')
