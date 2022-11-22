@@ -9,6 +9,9 @@ from authcore.models import CustomUser
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
+    description = models.CharField(max_length=450)
+    mini_description = models.CharField(max_length=70)
+    image = models.ImageField(upload_to='media')
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)

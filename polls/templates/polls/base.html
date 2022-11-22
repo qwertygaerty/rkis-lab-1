@@ -27,23 +27,23 @@
         </div>
 
         {% if not user.is_authenticated %}
-            <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
-               href="{% url 'login' %}">Войти</a>
-            <a class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200"
-               href="{% url 'register' %}">Зарегестрироваться</a>
+        <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
+           href="{% url 'login' %}">Войти</a>
+        <a class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200"
+           href="{% url 'register' %}">Зарегестрироваться</a>
 
         {% else %}
-            <div class="flex gap-10">
-                <a href="{% url 'profile' %}" class="">
+        <div class="flex gap-10">
+            <a href="{% url 'profile' %}" class="">
 
-                    <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600">
-                        <img src="../../../media/{{ user.avatar  }}" alt="logo">
-                    </div>
-                </a>
+                <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600">
+                    <img src="../../../media/{{ user.avatar  }}" alt="logo">
+                </div>
+            </a>
 
-                <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
-                   href="{% url 'logout' %}">Выйти</a>
-            </div>
+            <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
+               href="{% url 'logout' %}">Выйти</a>
+        </div>
 
         {% endif %}
     </nav>
