@@ -70,16 +70,24 @@ def delete_user(request):
     return redirect('register')
 
 
+@login_required
 def update_user(request):
     if request.method == 'GET':
         form = UpdateForm()
         context = {'form': form}
         return render(request, 'update.html', context)
     if request.method == 'POST':
-        # form = UpdateForm(request.POST, request.user, request.FILES)
-        form = UpdateForm(request.POST, request.FILES, instance=request.user)
+        print(request.user.username)
+        form = UpdateForm(request.POST, request.FILES, instance=request.user, )
+        print(request.user.username)
         if form.is_valid():
-            form.save()
+
+            fs = form.save(commit=False)
+            if len(fs.username) == 0:
+                fs.username = request.user.username
+
+            fs.save()
+
             return redirect('profile')
         else:
             print('Form is not valid')
