@@ -25,7 +25,7 @@ class DetailView(generic.DetailView):
         print(question)
 
         try:
-            choice = UserChoice.objects.get(user=request.user, choice_id=self.kwargs['pk'])
+            choice = UserChoice.objects.get(user=request.user, choice__question__id=self.kwargs['pk'])
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
         except UserChoice.DoesNotExist:
             return super().get(request, *args, **kwargs)
