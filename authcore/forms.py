@@ -1,6 +1,6 @@
 from django import forms
 from django.core.files.images import get_image_dimensions
-from .models import User
+from .models import CustomUser
 
 
 class RegisterForm(forms.ModelForm):
@@ -63,7 +63,7 @@ class RegisterForm(forms.ModelForm):
         return avatar
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['avatar', 'username', 'email', 'password', 'password2']
 
 
@@ -81,5 +81,5 @@ class LoginForm(forms.Form):
     )
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'password']

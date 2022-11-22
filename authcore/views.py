@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import RegisterForm, LoginForm
 
-from .models import User
+from .models import CustomUser
 
 
 def register(request):
@@ -36,7 +36,9 @@ def login_user(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(username=cd['username'], password=cd['password'])
+            print(cd['username'])
+            print(cd['password'])
+            user = CustomUser.objects.get(username=cd['username'], password=cd['password'])
             if user is not None:
                 login(request, user)
                 return redirect('polls:index')
