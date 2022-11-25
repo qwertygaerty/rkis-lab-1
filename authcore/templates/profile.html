@@ -1,46 +1,51 @@
 {% extends 'polls/base.html' %}
 
 {% block content %}
-<div class="relative shadow rounded-lg w-5/6 md:w-4/6  lg:w-3/6 xl:w-2/6 mx-auto mt-14">
-    <div class="flex justify-center">
-        <img src="../../../media/{{ user.avatar }}" alt=""
-             class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
-    </div>
-    <div class="mt-14">
-        <h2 class="font-bold text-center text-3xl text-gray-900">{{ user.get_username }}</h2>
-        <p class="text-center text-sm text-gray-400 font-medium">{{ user.email }}</p>
-
-        <div class="my-5 px-6">
-            <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
-               href="{% url 'update' %}">Редактировать данные</a>
-            <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-red-100 hover:bg-red-300 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
-               href="{% url 'delete_user' %}">Удалить аккаунт</a>
+    <div class="relative shadow rounded-lg w-5/6 md:w-4/6  lg:w-3/6 xl:w-2/6 mx-auto mt-14">
+        <div class="flex justify-center">
+            <img src="../../../media/{{ user.avatar }}" alt=""
+                 class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
         </div>
+        <div class="mt-14">
+            <h2 class="font-bold text-center text-3xl text-gray-900">{{ user.get_username }}</h2>
+            <p class="text-center text-sm text-gray-400 font-medium">{{ user.email }}</p>
 
-        <div class="w-full">
+            <div class="my-5 px-6">
+                <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
+                   href="{% url 'update' %}">Редактировать данные</a>
+                <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-red-100 hover:bg-red-300 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
+                   href="{% url 'delete_user' %}">Удалить аккаунт</a>
+            </div>
 
-            <h3 class="font-medium text-gray-900 text-left px-6">Recent activites</h3>
-            <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
+            <div class="w-full">
 
-
-                {% for r in recent %}
-                    <a href="{% url 'polls:results' r.choice.question.id %}"
-                       class="flex items-center gap-2 w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                        <img class="rounded-full h-6 shadow-md inline-block mr-2" src="../../../media/{{ user.avatar }}"
-                             alt="logo">
-
-                             Выбрал <text class="text-blue-500 ">{{r.choice}}</text> в <text class="text-blue-500">{{r.choice.question}}</text>
-
-                        <span class="text-gray-500 text-xs">24 min ago</span>
+                <h3 class="font-medium text-gray-900 text-left px-6">Recent activites</h3>
+                <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
 
 
-                    </a>
+                    {% for r in recent %}
+                        <div class="flex  items-center gap-2 w-full border-t border-gray-100 text-gray-600  pl-6 pr-3 block hover:bg-gray-100 transition duration-150">
+                            <img class="rounded-full h-6 shadow-md inline-block mr-2"
+                                 src="../../../media/{{ user.avatar }}"
+                                 alt="logo">
 
-                {% endfor %}
+                            <a href="{% url 'polls:results' r.choice.question.id %}"
+                               class="flex flex-wrap items-center gap-2 w-full  py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150">
+                                Выбрал
+                                <text class="text-blue-500 ">{{ r.choice }}</text>
+                                в
+                                <text class="text-blue-500">{{ r.choice.question }}</text>
+
+                                <span class="text-gray-500 text-xs">24 min ago</span>
+                            </a>
+                        </div>
+
+
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 {% endblock %}
