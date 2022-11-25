@@ -20,12 +20,16 @@ class DetailView(generic.DetailView):
     template_name = 'polls/detail.html'
 
     def get(self, request, *args, **kwargs):
+
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('register'))
+
         question = get_object_or_404(Question, pk=self.kwargs['pk'])
         print(self.kwargs['pk'])
         print(question)
 
         try:
-            choice = UserChoice.objects.get(user=request.user, choice_id=self.kwargs['pk'])
+            choice = UserChoice.objects.get(user=request.user, choice__question__id=self.kwargs['pk'])
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
         except UserChoice.DoesNotExist:
             return super().get(request, *args, **kwargs)

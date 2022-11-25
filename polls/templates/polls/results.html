@@ -1,13 +1,15 @@
 {% extends 'polls/base.html' %}
 {% block content %}
     <h1>{{ question.question_text }} - Итоги</h1>
+    <p class="py-5">{{ question.description }}</p>
+
     <ul class="flex justify-between py-5">
         {% for choice in question.choice_set.all %}
             <li class="text-3xl">{{ choice.choice_text }} - {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
         {% endfor %}
     </ul>
     <div class="shadow-lg rounded-lg overflow-hidden w-6/12 my-0 mx-auto mb-10">
-        <div class="py-3 px-5 bg-gray-50 ">Результаты</div>
+        <div class="py-3 px-5 bg-gray-50 "></div>
         <canvas class="p-10" id="chartPie"></canvas>
     </div>
 

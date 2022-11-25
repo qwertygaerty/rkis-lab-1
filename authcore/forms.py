@@ -68,18 +68,20 @@ class RegisterForm(forms.ModelForm):
 
 
 class UpdateForm(forms.ModelForm):
-    avatar = forms.FileField(help_text='Enter avatar', required=False, )
+    avatar = forms.FileField(help_text='Enter avatar', required=False,)
     username = forms.CharField(
-        required=False,
+        required=True,
         help_text='Enter username',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'username'}),
+
     )
 
     email = forms.EmailField(
-        required=False,
+        required=True,
         max_length=100,
         help_text='Enter Email Address',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+
     )
 
     def clean_avatar(self):
@@ -120,12 +122,13 @@ class UpdateForm(forms.ModelForm):
         fields = ['avatar', 'username', 'email', ]
 
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(
         max_length=100,
         required=True,
-        help_text='Enter Email Address',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+        help_text='Enter Username Address',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
     )
     password = forms.CharField(
         help_text='Enter Password',

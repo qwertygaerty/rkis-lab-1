@@ -1,11 +1,15 @@
 {% extends 'polls/base.html' %}
 {% block content %}
-<form action="{% url 'polls:vote' question.id %}" method="post">
+
+
+<div class="flex gap-4">
+    <form action="{% url 'polls:vote' question.id %}" method="post" class="mb-10 w-6/12">
     {% csrf_token %}
-    <fieldset class="flex flex-col gap-4">
+    <fieldset class="flex flex-col gap-4 ">
         <legend>
             <h1>{{question.question_text}}</h1>
         </legend>
+    <p class="">{{ question.description }}</p>
         {% if error_message %}
         <div class="alert alert-error shadow-lg justify-center" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
@@ -31,4 +35,7 @@
             type="submit">Проголосовать
     </button>
 </form>
+     <img src="../../../media/{{ question.image }}" alt=""
+                 class="mx-auto shadow-md border-4 border-white transition duration-200 transform w-5/12 max-h-screen">
+</div>
 {% endblock %}

@@ -1,23 +1,84 @@
 {% extends 'polls/base.html' %}
 {% block content %}
-    {% if user.is_authenticated %}
-        <p class="text-4xl">Welcome, {{ user.get_username }}.</p>
-    {% endif %}
+{% if user.is_authenticated %}
+<p class="text-4xl">Welcome, {{ user.get_username }}.</p>
+{% endif %}
 
 
-    <h1 class="center">Smart Questionnaire</h1>
-    {% if latest_question_list %}
-        <div class="episodes">
-            {% for question in latest_question_list %}
-                <article class="episode">
-                    <a href="{% url 'polls:detail' question.id %}"
-                       class="episode__number">{{ question.question_text }}</a>
-                </article>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p>Нет вопросов!</p>
-    {% endif %}
+<h1 class="center">Smart Questionnaire</h1>
+{% if latest_question_list %}
+<div class="episodes">
+    {% for question in latest_question_list %}
+    <article class="episode flex flex-col items-start ">
+        <a href="{% url 'polls:detail' question.id %}"
+           class="episode__number">{{ question.question_text }}</a>
+        <a href="{% url 'polls:detail' question.id %}"><p class="desc cursor-pointer">{{ question.mini_description }}</p></a>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<p>Нет вопросов!</p>
+{% endif %}
+
+<div class="cursor"></div>
+<div class="cursor2"></div>
+<script>
+const cursor = document.querySelector('.cursor');
+const cursorinner = document.querySelector('.cursor2');
+const a = document.querySelectorAll('a');
+
+document.addEventListener('mousemove', function(e){
+  const x = e.clientX;
+  const y = e.clientY;
+  cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`
+});
+
+document.addEventListener('mousemove', function(e){
+  const x = e.clientX;
+  const y = e.clientY;
+  cursorinner.style.left = x + 'px';
+  cursorinner.style.top = y + 'px';
+});
+
+document.addEventListener('mousedown', function(){
+  cursor.classList.add('click');
+  cursorinner.classList.add('cursorinnerhover')
+});
+
+document.addEventListener('mouseup', function(){
+  cursor.classList.remove('click')
+  cursorinner.classList.remove('cursorinnerhover')
+});
+
+a.forEach(item => {
+  item.addEventListener('mouseover', () => {
+    cursor.classList.add('hover');
+  });
+  item.addEventListener('mouseleave', () => {
+    cursor.classList.remove('hover');
+  });
+})
+
+ window.onload = function() {
+  const x = e.clientX;
+  const y = e.clientY;
+  cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`
+  cursorinner.style.left = x + 'px';
+  cursorinner.style.top = y + 'px';
+};
+
+
+
+
+
+</script>
+<style>
+    * {
+     cursor: none !important;
+    }
+</style>
+
+
 {% endblock %}
 
 
